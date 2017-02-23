@@ -68,7 +68,7 @@ class MCP_CAN
 *  mcp2515 driver function 
 */
    // private:
-private:
+protected:
 
     void mcp2515_reset(void);                                           /* reset mcp2515                */
 
@@ -133,6 +133,19 @@ public:
     INT8U isRemoteRequest(void);                                    /* get RR flag when receive     */
     INT8U isExtendedFrame(void);                                    /* did we recieve 29bit frame?  */
 };
+
+class SWcan: public MCP_CAN{
+	public:
+	SWcan(INT8U _CS) : MCP_CAN(_CS){	};
+	void setupSW(unsigned long addr);
+	void mode(byte mode);
+	
+	private:
+	unsigned long address;
+
+};
+
+
 
 #endif
 /*********************************************************************************************************

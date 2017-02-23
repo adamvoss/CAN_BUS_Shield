@@ -987,6 +987,43 @@ INT8U MCP_CAN::isExtendedFrame(void)
     return m_nExtFlg;
 } 
 
+void SWcan::setupSW(unsigned long addr){
+
+	begin(CAN_33KBPS);
+	
+	PIOB->PIO_PER = PIO_PB0; 
+	PIOB->PIO_OER = PIO_PB0; 
+	PIOB->PIO_PUDR = PIO_PB0;
+	
+	PIOB->PIO_PER = PIO_PB27; 
+	PIOB->PIO_OER = PIO_PB27; 
+	PIOB->PIO_PUDR = PIO_PB27;
+}
+
+void SWcan::mode(byte mode){
+	switch(mode){
+		case 0: // Sleep Mode
+			PIOB->PIO_CODR = PIO_PB27; // LOW
+			PIOB->PIO_CODR = PIO_PB0; // LOW
+		break;
+		case 1: // High Speed
+			PIOB->PIO_SODR = PIO_PB27; // HIGH
+			PIOB->PIO_CODR = PIO_PB0; // LOW
+		break;
+		case 2: // High Voltage Wake-Up
+			PIOB->PIO_CODR = PIO_PB27; // LOW
+			PIOB->PIO_SODR = PIO_PB0; // HIGH
+		break;
+		case 3: // Normal Mode
+			PIOB->PIO_SODR = PIO_PB27; // HIGH
+			PIOB->PIO_SODR = PIO_PB0; // HIGH
+		break;
+		default:
+		break;
+	}
+}
+
+
 /*********************************************************************************************************
   END FILE
 *********************************************************************************************************/
