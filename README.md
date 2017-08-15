@@ -2,9 +2,8 @@ CAN BUS Shield
 ---------------------------------------------------------
 [![CAN BUS Shield](http://www.seeedstudio.com/depot/images/1130300211.jpg)](http://www.seeedstudio.com/depot/CANBUS-Shield-p-2256.html?cPath=19_88)
 
-
-
 <br>
+
 CAN-BUS is a common industrial bus because of its long travel distance, medium communication speed and high reliability. It is commonly found on modern machine tools and as an automotive diagnostic bus. This CAN-BUS Shield adopts MCP2515 CAN Bus controller with SPI interface and MCP2551 CAN transceiver to give your Arduino/Seeeduino CAN-BUS capibility. With an OBD-II converter cable added on and the OBD-II library imported, you are ready to build an onboard diagnostic device or data logger.
 
 - Implements CAN V2.0B at up to 1 Mb/s
@@ -16,12 +15,9 @@ CAN-BUS is a common industrial bus because of its long travel distance, medium c
 
 
 
-<br>
-# Usage:
+## Usage:
 
-
-
-## 1. Set the BaudRate
+### 1. Set the BaudRate
 
 This function is used to initialize the baudrate of the CAN Bus system.
 
@@ -47,9 +43,7 @@ The available baudrates are listed as follws:
 	#define CAN_1000KBPS 18
 
 
-<br>
-
-##2. Set Receive Mask and Filter
+### 2. Set Receive Mask and Filter
 
 There are 2 receive mask registers and 5 filter registers on the controller chip that guarantee you get data from the target device. They are useful especially in a large network consisting of numerous nodes.
 
@@ -64,20 +58,14 @@ We provide two functions for you to utilize these mask and filter registers. The
 
 **ulData** represents the content of the mask of filter.
 
-
-
-<br>
-## 3. Check Receive
+### 3. Check Receive
 The MCP2515 can operate in either a polled mode, where the software checks for a received frame, or using additional pins to signal that a frame has been received or transmit completed.  Use the following function to poll for received frames.
 
     INT8U MCP_CAN::checkReceive(void);
 
 The function will return 1 if a frame arrives, and 0 if nothing arrives.
 
-
-
-<br>
-## 4. Get CAN ID
+### 4. Get CAN ID
 
 When some data arrive, you can use the following function to get the CAN ID of the "send" node. 
 
@@ -85,8 +73,7 @@ When some data arrive, you can use the following function to get the CAN ID of t
 
 
 
-<br>
-## 5. Send Data
+### 5. Send Data
 
     CAN.sendMsgBuf(INT8U id, INT8U ext, INT8U len, data_buf);
 
@@ -102,16 +89,13 @@ This is a function to send data onto the bus. In which:
 
 For example, In the 'send' example, we have:
 
-<pre>  
+```
 unsigned char stmp[8] = {0, 1, 2, 3, 4, 5, 6, 7};
 
 CAN.sendMsgBuf(0x00, 0, 8, stmp); //send out the message 'stmp' to the bus and tell other devices this is a standard frame from 0x00.
-</pre>
+```
 
-
-
-<br>
-## 6. Receive Data
+### 6. Receive Data
 
 The following function is used to receive data on the 'receive' node:
 
@@ -123,8 +107,7 @@ In conditions that masks and filters have been set. This function can only get f
 
 **buf** is where you store the data.
 
-<br>
-## 7. Check additional flags
+### 7. Check additional flags
 
 When frame is received you may check whether it was remote request and whether it was an extended (29bit) frame.
 
@@ -135,6 +118,7 @@ When frame is received you may check whether it was remote request and whether i
 
 
 <br>
+
 For more information, please refer to [wiki page](http://www.seeedstudio.com/wiki/CAN-BUS_Shield).
 
     
